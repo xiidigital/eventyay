@@ -130,6 +130,10 @@ chmod ugo+rwx $FULL_DATA_DIR/static
 apt install nginx ssl-cert certbot python3-certbot-nginx
 ```
 
+Alternatively, HTTPS can run inside Docker with Traefik, see
+[HTTPS with Traefik](#https-with-traefik-instead-of-the-host-nginx). In that
+case skip this step, the nginx entry and the ssl update.
+
 ## Set up deployment data
 
 Note, this should run as user $USER
@@ -236,3 +240,26 @@ On new server
 ## Start up
 
 `docker compose up -d`
+
+## HTTPS with Traefik instead of the host nginx
+
+`deployment/docker-compose.traefik.yml` adds Traefik, which gets the Let's Encrypt
+certificate and routes `/ws/` to daphne and everything else to gunicorn, plus a
+small nginx container that serves the static and media files. It needs Docker
+Compose 2.24.4 or newer.
+
+Make sure to run this only AFTER you have pointed the DNS for the domain
+to the correct IP, and that ports 80 and 443 are open. Ports 8000 and 8001
+are no longer published on the host.
+
+```$USER@server
+cd /home/$USER/$DEPLOYMENT_NAME
+ln -s eventyay/deployment/docker-compose.traefik.yml .
+```
+
+In `.env`, set `SERVER_NAME` and `MANAGEMENT_EMAIL`, and uncomment
+`COMPOSE_FILE=docker-compose.yml:docker-compose.traefik.yml` so that every
+`docker compose` command uses both files. Then start up as above.
+While testing, uncomment `ACME_CA_SERVER` to use the Let's Encrypt staging CA;
+its certificates are not trusted by browsers. To switch to real certificates,
+comment it out again and delete `$DATA_DIR/letsencrypt/acme.json`.
