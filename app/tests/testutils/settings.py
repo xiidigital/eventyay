@@ -17,6 +17,14 @@ TEMPLATES[0]['OPTIONS'] = dict(TEMPLATES[0]['OPTIONS'])
 DATA_DIR = tmpdir.name
 LOG_DIR = os.path.join(DATA_DIR, 'logs')
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
+# The default storage follows MEDIA_ROOT by itself, this alias has its location set explicitly.
+STORAGES = {
+    **STORAGES,
+    'cfp_uploads': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {'location': os.path.join(MEDIA_ROOT, 'cfp_uploads'), 'base_url': f'{MEDIA_URL}cfp_uploads/'},
+    },
+}
 SITE_URL = 'http://example.com'
 
 atexit.register(tmpdir.cleanup)

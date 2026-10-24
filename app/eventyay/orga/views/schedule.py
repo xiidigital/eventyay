@@ -10,6 +10,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.files.storage import storages
 from django.db import DatabaseError, transaction
 from django.http import FileResponse, Http404, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
@@ -23,7 +24,7 @@ from django_scopes import scope
 from i18nfield.strings import LazyI18nString
 from i18nfield.utils import I18nJSONEncoder
 
-from eventyay.agenda.management.commands.export_schedule_html import get_export_zip_path
+from eventyay.agenda.management.commands.export_schedule_html import get_export_zip_name
 from eventyay.agenda.tasks import export_schedule_html
 from eventyay.base.models import Availability, Room, TalkSlot
 from eventyay.base.models.room import (
@@ -103,8 +104,8 @@ class ScheduleExportDownloadView(EventPermissionRequired, View):
 
     def get(self, request, *args, **kwargs):
         try:
-            zip_path = get_export_zip_path(self.request.event)
-            response = FileResponse(open(zip_path, 'rb'), as_attachment=True)
+            zip_name = get_export_zip_name(self.request.event)
+            response = FileResponse(storages['htmlexport'].open(zip_name), as_attachment=True)
         except Exception as e:
             log_event('talk', 'export.error', OUTCOME_FAILURE, error_code='zip_missing', event_id=getattr(self.request.event, 'pk', None))
             messages.error(
@@ -112,7 +113,7 @@ class ScheduleExportDownloadView(EventPermissionRequired, View):
                 _('Could not find the current export, please try to regenerate it. ({error})').format(error=str(e)),
             )
             return redirect(self.request.event.orga_urls.schedule_export)
-        response['Content-Disposition'] = 'attachment; filename=' + safe_filename(zip_path.name)
+        response['Content-Disposition'] = 'attachment; filename=' + safe_filename(zip_name)
         return response
 
 

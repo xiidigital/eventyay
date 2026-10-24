@@ -2,8 +2,8 @@ import logging
 
 from django.conf import settings
 from django.core.exceptions import SuspiciousFileOperation, ValidationError
-from django.core.files.storage import default_storage
 from django.db import transaction
+from django.utils._os import safe_join
 from django.utils.crypto import get_random_string
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
@@ -848,7 +848,8 @@ class EventSettingsSerializer(SettingsSerializer):
             if not current_file:
                 continue
             try:
-                default_storage.path(current_file)
+                # Same containment check FileSystemStorage.path() does, but it works for any storage backend.
+                safe_join(settings.MEDIA_ROOT, current_file)
             except SuspiciousFileOperation:
                 instance.delete(name)
 

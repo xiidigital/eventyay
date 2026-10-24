@@ -3,13 +3,11 @@ import json
 import logging
 from collections import OrderedDict
 from contextlib import suppress
-from pathlib import Path
 from types import SimpleNamespace
 
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
-from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import storages
 from django.core.files.uploadedfile import UploadedFile
 from django.db.models import F
 from django.forms import ValidationError
@@ -230,10 +228,7 @@ class TemplateFlowStep(TemplateResponseMixin, BaseCfPStep):
 
 class FormFlowStep(TemplateFlowStep):
     form_class = None
-    file_storage = FileSystemStorage(
-        str(Path(settings.MEDIA_ROOT) / 'cfp_uploads'),
-        base_url=f'{settings.MEDIA_URL.rstrip("/")}/cfp_uploads/',
-    )
+    file_storage = storages['cfp_uploads']
 
     def get_form_initial(self):
         initial_data = self.cfp_session.get('initial', {}).get(self.identifier, {})

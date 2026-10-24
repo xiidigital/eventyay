@@ -240,6 +240,10 @@ docs = [
     "sphinxcontrib-spelling>=8.0.2",
     "sphinxemoji>=0.3.2",
 ]
+# Google Cloud Storage backend for uploaded files (EVY_MEDIA_STORAGE=gcs).
+gcs = [
+    "django-storages[google]>=1.14.6",
+]
 
 [dependency-groups]
 dev = [

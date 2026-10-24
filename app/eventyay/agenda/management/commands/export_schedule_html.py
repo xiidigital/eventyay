@@ -7,6 +7,8 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 from django.conf import settings
+from django.core.files import File
+from django.core.files.storage import storages
 from django.core.management.base import BaseCommand, CommandError
 from django.test import Client, override_settings
 from django.utils.timezone import override as override_timezone
@@ -147,6 +149,11 @@ def dump_content(destination, path, getter):
     return content
 
 
+def is_remote_media_url(url):
+    """Media in a remote storage (e.g. a bucket) is linked from the export, not copied into it."""
+    return '://' in settings.MEDIA_URL and url.startswith(settings.MEDIA_URL)
+
+
 def get_mediastatic_content(url):
     # We have to unquote the URL to successfully find the file on disk
     url = urllib.parse.unquote(url)
@@ -180,7 +187,7 @@ def export_event(event, destination):
         for url in map(get_path, urls):
             content = dump_content(destination, url, get)
             if not url.startswith('/media/') and not url.startswith('/static/'):
-                assets |= set(map(get_path, find_assets(content)))
+                assets |= {get_path(asset) for asset in find_assets(content) if not is_remote_media_url(asset)}
 
         css_assets = set()
 
@@ -207,6 +214,28 @@ def get_export_path(event):
 
 def get_export_zip_path(event):
     return get_export_path(event).with_suffix('.zip')
+
+
+def get_export_zip_name(event):
+    """Name of the export ZIP in the 'htmlexport' storage."""
+    return get_export_zip_path(event).name
+
+
+def store_export_zip(event):
+    """Move the export ZIP into the 'htmlexport' storage, so that web servers on other hosts can serve it.
+
+    Nothing to do when that storage is the local HTMLEXPORT_ROOT, where the ZIP is built.
+    """
+    storage = storages['htmlexport']
+    name = get_export_zip_name(event)
+    zip_path = get_export_zip_path(event)
+    with contextlib.suppress(NotImplementedError):
+        if Path(storage.path(name)) == zip_path:
+            return
+    storage.delete(name)
+    with zip_path.open('rb') as zip_file:
+        storage.save(name, File(zip_file))
+    zip_path.unlink()
 
 
 class Command(BaseCommand):
@@ -251,6 +280,7 @@ class Command(BaseCommand):
                     format='zip',
                 )
                 delete_directory(export_dir)
+                store_export_zip(event)
 
                 logging.info(f'Exported to {zip_path}')
             else:

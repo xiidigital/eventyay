@@ -1,5 +1,4 @@
 import logging
-from pathlib import Path
 
 from celery.exceptions import MaxRetriesExceededError
 from django.core.files.storage import default_storage
@@ -56,17 +55,22 @@ def task_cleanup_file(*, model: str, pk: int, field: str, path: str):
             return
 
         file = getattr(instance, field, None)
-        if file and file.path == path:
-            # The save action that triggered this task did not go through and the file
-            # is still in use, so we should not delete it.
-            return
-
-        real_path = Path(path)
-        if real_path.exists():
+        if file:
             try:
+                current_path = file.path
+            except NotImplementedError:
+                # Remote storages have no local path, so the caller passes the file name.
+                current_path = file.name
+            if current_path == path:
+                # The save action that triggered this task did not go through and the file
+                # is still in use, so we should not delete it.
+                return
+
+        try:
+            if default_storage.exists(path):
                 default_storage.delete(path)
-            except OSError:  # pragma: no cover
-                logger.error('Deleting file %s failed.', path)
+        except OSError:  # pragma: no cover
+            logger.error('Deleting file %s failed.', path)
 
 
 @app.task(

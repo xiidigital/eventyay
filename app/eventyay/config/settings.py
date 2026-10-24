@@ -12,6 +12,7 @@ import django.conf.locale
 import importlib_metadata
 from corsheaders.defaults import default_headers
 from django.contrib.messages import constants as messages
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 from kombu import Queue
 from pycountry import currencies
@@ -63,6 +64,15 @@ class RunningEnvironment(StrEnum):
     PRODUCTION = 'production'
     DEVELOPMENT = 'development'
     TESTING = 'testing'
+
+
+# Where uploaded files are stored, chosen via EVY_MEDIA_STORAGE.
+class MediaStorage(StrEnum):
+    # Below MEDIA_ROOT, served by Nginx.
+    LOCAL = 'local'
+    # In a Google Cloud Storage bucket, shared by every host (e.g. Cloud Run instances).
+    # Needs the "gcs" extra (django-storages[google]).
+    GCS = 'gcs'
 
 
 active_environment = RunningEnvironment(os.getenv(_ENV_KEY_ACTIVE_ENVIRONMENT, 'development'))
@@ -143,6 +153,17 @@ class BaseSettings(_BaseSettings):
     # and require us to run "compress" command after each frontend change.
     compress_offline_required: bool = False
     nanocdn_url: HttpUrl | None = None
+    media_storage: MediaStorage = MediaStorage.LOCAL
+    # The settings below only apply when media_storage is "gcs".
+    # Credentials come from Application Default Credentials (the service account on GCP).
+    gcs_bucket_name: str = ''
+    # Optional prefix for every object, to share a bucket with other apps.
+    gcs_location: str = ''
+    # Public base URL of the bucket, e.g. a CDN domain. Defaults to https://storage.googleapis.com/<bucket>.
+    gcs_custom_endpoint: str = ''
+    # Serve signed URLs, for buckets that are not publicly readable.
+    # Signing goes through the IAM API, so the service account needs roles/iam.serviceAccountTokenCreator on itself.
+    gcs_querystring_auth: bool = False
     zoom_key: str = ''
     zoom_secret: str = ''
     control_secret: str = ''
@@ -1508,6 +1529,53 @@ CURRENCIES = list(currencies)
 
 HTMLEXPORT_ROOT = DATA_DIR / 'htmlexport'
 HTMLEXPORT_ROOT.mkdir(exist_ok=True)
+
+# Besides 'default', these storages hold files written by one process and read by
+# another, so they must live in shared storage when the app runs on several hosts:
+# - 'cfp_uploads': temporary uploads of the CfP wizard, kept until the submission is saved.
+# - 'htmlexport': ZIP files of the HTML schedule export, built by a Celery worker.
+if conf.media_storage == MediaStorage.GCS:
+    if not conf.gcs_bucket_name:
+        raise ImproperlyConfigured('EVY_GCS_BUCKET_NAME is required when EVY_MEDIA_STORAGE is "gcs".')
+    if not importlib.util.find_spec('storages'):
+        raise ImproperlyConfigured('EVY_MEDIA_STORAGE "gcs" needs django-storages, install the "gcs" extra.')
+    gcs_prefix = conf.gcs_location.strip('/')
+    gcs_endpoint = conf.gcs_custom_endpoint.rstrip('/')
+    gcs_base_url = gcs_endpoint or f'https://storage.googleapis.com/{conf.gcs_bucket_name}'
+    gcs_options = {
+        'bucket_name': conf.gcs_bucket_name,
+        'custom_endpoint': gcs_endpoint or None,
+        'querystring_auth': conf.gcs_querystring_auth,
+        # Without a service account key (e.g. on Cloud Run), URLs are signed through the IAM API.
+        'iam_sign_blob': conf.gcs_querystring_auth,
+        # Like FileSystemStorage, rename instead of replacing an existing file.
+        'file_overwrite': False,
+    }
+    STORAGES.update(
+        {
+            alias: {
+                'BACKEND': 'storages.backends.gcloud.GoogleCloudStorage',
+                'OPTIONS': {**gcs_options, 'location': '/'.join(filter(None, (gcs_prefix, subdir)))},
+            }
+            for alias, subdir in (('default', ''), ('cfp_uploads', 'cfp_uploads'), ('htmlexport', 'htmlexport'))
+        }
+    )
+    # Some code builds media URLs from MEDIA_URL (e.g. the CSP header), so it must match
+    # the URLs of the default storage.
+    MEDIA_URL = f'{gcs_base_url}/{gcs_prefix}/' if gcs_prefix else f'{gcs_base_url}/'
+else:
+    STORAGES.update(
+        {
+            'cfp_uploads': {
+                'BACKEND': 'django.core.files.storage.FileSystemStorage',
+                'OPTIONS': {'location': MEDIA_ROOT / 'cfp_uploads', 'base_url': f'{MEDIA_URL}cfp_uploads/'},
+            },
+            'htmlexport': {
+                'BACKEND': 'django.core.files.storage.FileSystemStorage',
+                'OPTIONS': {'location': HTMLEXPORT_ROOT},
+            },
+        }
+    )
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 MESSAGE_TAGS = {
