@@ -9,8 +9,8 @@
 		)
 			i.fa.fa-bars.fa-lg(aria-hidden="true")
 		a.navbar-brand(:href="platformHomeUrl", :class="{anonymous: isAnonymous}")
-			img(src="/eventyay-logo.svg", alt="eventyay")
-			span.brand-text eventyay
+			img(src="/eventyay-logo.svg", :alt="instanceName")
+			span.brand-text {{ instanceName }}
 		a.nav-view-event(
 			v-if="showPublicVideoLink",
 			:href="publicVideoUrl",
@@ -225,6 +225,8 @@ function buildMenuExternalHref(item) {
 	const base = buildBaseSansVideo()
 	return base + item.externalPath
 }
+
+const instanceName = config?.instanceName || 'eventyay'
 
 const brandLogoUrl = computed(() => {
 	const basePath = config?.basePath ?? ''

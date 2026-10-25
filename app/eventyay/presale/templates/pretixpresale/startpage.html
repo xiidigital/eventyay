@@ -34,7 +34,7 @@
     {% else %}
         {% if global_settings.startpage_show_hero %}
         <section class="startpage-hero-content" style="text-align: center; margin-bottom: 3rem; padding: 2rem 1rem;">
-            <h1>{% if global_settings.startpage_hero_title %}{{ global_settings.startpage_hero_title }}{% else %}Eventyay – Open Source Event Management Platform{% endif %}</h1>
+            <h1>{% if global_settings.startpage_hero_title %}{{ global_settings.startpage_hero_title }}{% else %}{{ INSTANCE_NAME }} – Open Source Event Management Platform{% endif %}</h1>
             <p class="lead" style="font-size: 1.25rem; color: #555; max-width: 800px; margin: 1rem auto;">
                 {% if global_settings.startpage_hero_text %}{{ global_settings.startpage_hero_text }}{% else %}
                 The comprehensive platform for all your event needs. Ticketing, Call for Speakers, Scheduling, Check-in, and more.

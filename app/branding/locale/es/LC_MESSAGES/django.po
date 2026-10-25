@@ -1,0 +1,530 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: eventxii branding\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: eventyay/api/serializers/organizer.py:277
+#: eventyay/base/services/teams.py:149
+#: eventyay/control/views/admin_messages.py:1086
+#: eventyay/eventyay_common/views/organizer.py:681
+#: eventyay/eventyay_common/views/team.py:100
+msgid "eventyay account invitation"
+msgstr "Invitación a la cuenta de eventxii"
+
+#: eventyay/api/templates/rest_framework/api.html:18
+#: eventyay/orga/templates/orga/auth/base.html:29
+msgid "The eventyay logo"
+msgstr "El logo eventxii"
+
+#: eventyay/base/configurations/default_setting.py:152
+#: eventyay/control/templates/pretixcontrol/items/orderforms.html:211
+msgid ""
+"Normally, eventyay asks for one email address per order and the order "
+"confirmation will be sent only to that email address. If you enable this "
+"option, the system will additionally ask for individual email addresses for "
+"every admission ticket. This might be useful if you want to obtain individual"
+" addresses for every attendee even in case of group orders. However, eventyay"
+" will send the order confirmation by default only to the primary email "
+"address, not to the per-attendee addresses. You can however enable this in "
+"the E-mail settings."
+msgstr ""
+"Normalmente, eventxii solicita una dirección de correo electrónico por pedido"
+" y la confirmación del pedido se enviará solo a esa dirección. Si activa esta"
+" opción, el sistema además pedirá direcciones de correo electrónico "
+"individuales para cada entrada de admisión. Esto puede ser útil si desea "
+"obtener direcciones individuales de cada asistente incluso en pedidos "
+"grupales. Sin embargo, por defecto eventxii enviará la confirmación del "
+"pedido solo a la dirección de correo principal, no a las direcciones por "
+"asistente. No obstante, puede habilitar esto en la configuración de correo "
+"electrónico."
+
+#: eventyay/base/configurations/default_setting.py:930
+#: eventyay/control/forms/event.py:129
+msgid ""
+"Users will be able to use eventyay in these languages, and you will be able "
+"to provide all texts in these languages. Drag and drop selected languages to "
+"reorder them — the first language (bold border) is used as your event's "
+"default language."
+msgstr ""
+"Users will be able to use eventxii in these languages, and you will be able "
+"to provide all texts in these languages. Drag and drop selected languages to "
+"reorder them — the first language (bold border) is used as your event's "
+"default language."
+
+#: eventyay/base/email.py:53
+msgid "Eventyay test email"
+msgstr "Eventxii test email"
+
+#: eventyay/base/email.py:55
+msgid ""
+"This is a test email sent from Eventyay. If you received this email, your "
+"email settings are correct."
+msgstr ""
+"This is a test email sent from Eventxii. If you received this email, your "
+"email settings are correct."
+
+#: eventyay/base/models/auth.py:946
+#, python-brace-format
+msgid ""
+"Hi {name},\n"
+"\n"
+"you have requested a new password for your eventyay account.\n"
+"To reset your password, click on the following link:\n"
+"\n"
+"  {url}\n"
+"\n"
+"If this wasn’t you, you can just ignore this email.\n"
+"\n"
+"All the best,\n"
+"the eventyay robot"
+msgstr ""
+"Hola {name},\n"
+"\n"
+"ha requerido una nueva contraseña para su cuenta eventxii.\n"
+"Para reiniciar su contraseña, haga clic en el enlace siguiente:\n"
+"\n"
+"  {url}\n"
+"\n"
+"Si este correo le fue enviado por error, puede ignorarlo.\n"
+"\n"
+"Salutaciones,\n"
+"el robot eventxii"
+
+#: eventyay/base/models/auth.py:987
+#, python-brace-format
+msgid ""
+"Hi {name},\n"
+"\n"
+"Your eventyay account password was just changed.\n"
+"\n"
+"If you did not change your password, please contact the site administration immediately.\n"
+"\n"
+"All the best,\n"
+"the eventyay team"
+msgstr ""
+"Hola {name},\n"
+"\n"
+"La contraseña de tu cuenta de eventxii acaba de cambiarse.\n"
+"\n"
+"Si no cambiaste tu contraseña, contacta con la administración del sitio de inmediato.\n"
+"\n"
+"Un saludo,\n"
+"el equipo de eventxii"
+
+#: eventyay/base/models/auth.py:999
+msgid "[eventyay] Password changed"
+msgstr "[eventxii] Contraseña cambiada"
+
+#: eventyay/base/models/event.py:658
+msgid ""
+"Provide a hex value like #00ff00 if you want to style eventyay in your "
+"event’s colour scheme."
+msgstr ""
+"Proporcione un valor hexadecimal como # 00ff00 si desea aplicar estilo a "
+"eventxii en la combinación de colores de su evento."
+
+#: eventyay/base/models/organizer.py:636
+msgid "Allows creating and editing kiosk displays inside Eventyay Video."
+msgstr "Allows creating and editing kiosk displays inside Eventxii Video."
+
+#: eventyay/base/models/organizer.py:641
+msgid "Allows viewing Eventyay Video statistics and analytics dashboards."
+msgstr "Allows viewing Eventxii Video statistics and analytics dashboards."
+
+#: eventyay/base/models/privacy.py:59
+msgid "Built-in Eventyay consent using Klaro"
+msgstr "Built-in Eventxii consent using Klaro"
+
+#: eventyay/base/models/settings.py:71
+#, python-brace-format
+msgid ""
+"Hi,\n"
+"\n"
+"we hope you’re happy with eventyay as your event’s CfP system.\n"
+"These links may be helpful in the coming days and weeks:\n"
+"\n"
+"- Your event’s dashboard: {event_dashboard}\n"
+"- A list of proposals: {event_submissions}\n"
+"- Your schedule editor: {event_schedule}\n"
+"\n"
+"If there is anything you’re missing, please contact us via our website on eventyay.com.\n"
+msgstr ""
+"Hola,\n"
+"\n"
+"esperamos que estés satisfecho con eventxii como sistema de CfP de tu evento.\n"
+"Estos enlaces pueden ser útiles en los próximos días y semanas:\n"
+"\n"
+"- Your event’s dashboard: {event_dashboard}\n"
+"- A list of proposals: {event_submissions}\n"
+"- Your schedule editor: {event_schedule}\n"
+"\n"
+"Si te falta algo, por favor contáctanos a través de nuestro sitio web en xii.digital.\n"
+
+#: eventyay/base/services/update_check.py:85
+msgid "eventyay update available"
+msgstr "actualización de eventxii disponible"
+
+#: eventyay/common/templates/400.html:19
+msgid ""
+"It looks as if the communication between you and eventyay went wrong in some "
+"way. <br> Please return to the last page and try again!"
+msgstr ""
+"Parece que la comunicación entre usted y eventxii salió mal de alguna "
+"manera.<br> ¡Regrese a la última página y vuelva a intentarlo!"
+
+#: eventyay/control/forms/admin/admin.py:19
+msgid ""
+"During the update check, eventyay will report an anonymous, unique "
+"installation ID, the current version of eventyay and your installed plugins "
+"and the number of active and inactive events in your installation to servers "
+"operated by the eventyay developers. We will only store anonymous data, never"
+" any IP addresses and we will not know who you are or where to find your "
+"instance. You can disable this behavior here at any time."
+msgstr ""
+"Durante la verificación de actualización, eventxii informará de una ID de "
+"instalación único y anónimo, la versión actual de eventxii y sus complementos"
+" instalados y el número de eventos activos e inactivos en su instalación a "
+"los servidores operados por los desarrolladores de eventxii. Solo "
+"almacenaremos datos anónimos, nunca direcciones IP y no sabremos quién es "
+"usted ni dónde encontrar su instancia. Puede desactivar este comportamiento "
+"aquí en cualquier momento."
+
+#: eventyay/control/forms/event.py:607 eventyay/control/forms/event.py:917
+msgid ""
+"This defines how eventyay will ask for human names. Changing this after you "
+"already received orders might lead to unexpected behavior when sorting or "
+"changing names."
+msgstr ""
+"Esto define como eventxii preguntará por nombres humanos. Cambiar esto luego "
+"de haber recibido ordenes puede causar comportamientos inesperados al "
+"reordenar o cambiar nombres."
+
+#: eventyay/control/forms/global_settings.py:415
+msgid ""
+"During the update check, eventyay will report an anonymous, unique "
+"installation ID, the current version of the system and your installed plugins"
+" and the number of active and inactive events in your installation to servers"
+" operated by the eventyay developers. We will only store anonymous data, "
+"never any IP addresses and we will not know who you are or where to find your"
+" instance. You can disable this behavior here at any time."
+msgstr ""
+"Durante la comprobación de actualizaciones, eventxii enviará a servidores "
+"operados por los desarrolladores de eventxii un ID de instalación único y "
+"anónimo, la versión actual del sistema, los complementos instalados y el "
+"número de eventos activos e inactivos en su instalación. Solo almacenaremos "
+"datos anónimos, nunca direcciones IP y no sabremos quién es ni dónde "
+"encontrar su instancia. Puede desactivar este comportamiento aquí en "
+"cualquier momento."
+
+#: eventyay/control/templates/pretixcontrol/admin/privacy_settings.html:66
+msgid ""
+"When an external CMP is selected, Eventyay cannot verify whether scripts are "
+"blocked correctly."
+msgstr ""
+"When an external CMP is selected, Eventxii cannot verify whether scripts are "
+"blocked correctly."
+
+#: eventyay/control/templates/pretixcontrol/admin/systemconfig.html:31
+msgid "Your eventyay version is:"
+msgstr "Tu versión de eventxii es:"
+
+#: eventyay/control/templates/pretixcontrol/admin/vouchers/index.html:31
+msgid ""
+"Platform fee vouchers only affect Eventyay platform fees. They do not reduce "
+"attendee ticket prices, ticket fees, payment gateway fees, or taxes."
+msgstr ""
+"Platform fee vouchers only affect Eventxii platform fees. They do not reduce "
+"attendee ticket prices, ticket fees, payment gateway fees, or taxes."
+
+#: eventyay/control/templates/pretixcontrol/checkin/lists.html:61
+#: eventyay/control/templates/pretixcontrol/checkin/lists.html:77
+msgid "Open eventyay Check-in"
+msgstr "Open eventxii Check-in"
+
+#: eventyay/control/templates/pretixcontrol/email/security_notice.txt:1
+#, python-format
+msgid ""
+"Hello,\n"
+"\n"
+"this is to inform you that the account information of your eventyay account has been\n"
+"changed. In particular, the following changes have been performed:\n"
+"\n"
+"%(messages)s\n"
+"\n"
+"If this change was not performed by you, please contact us immediately.\n"
+"\n"
+"You can review and change your account settings here:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"Best regards,\n"
+"Your system team\n"
+msgstr ""
+"Hola,\n"
+"\n"
+"Te informamos que la información de tu cuenta en eventxii ha sido modificada. En particular, se han realizado los siguientes cambios:\n"
+"\n"
+"%(messages)s\n"
+"\n"
+"Si no realizaste este cambio, por favor contáctanos de inmediato.\n"
+"\n"
+"Puedes revisar y cambiar la configuración de tu cuenta aquí:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"Un saludo,\n"
+"El equipo del sistema\n"
+
+#: eventyay/control/templates/pretixcontrol/organizers/billing.html:60
+msgid ""
+"By saving this payment method, you authorize Eventyay to automatically charge"
+" it for future organizer invoices while automatic payments remain enabled. "
+"Invoice totals can vary based on your plan, add-ons, ticket fees, usage, "
+"refunds, adjustments and applicable taxes. Where supported by your billing "
+"integration, automatic payments are managed separately from subscriptions."
+msgstr ""
+"By saving this payment method, you authorize Eventxii to automatically charge"
+" it for future organizer invoices while automatic payments remain enabled. "
+"Invoice totals can vary based on your plan, add-ons, ticket fees, usage, "
+"refunds, adjustments and applicable taxes. Where supported by your billing "
+"integration, automatic payments are managed separately from subscriptions."
+
+#: eventyay/control/templates/pretixcontrol/organizers/delete.html:46
+msgid ""
+"eventyay does not allow deleting orders once they have been placed in order "
+"to be audit-proof and trustable by financial authorities."
+msgstr ""
+"eventxii no permite eliminar pedidos una vez realizados para ser a prueba de "
+"auditorías y confiable ante las autoridades financieras."
+
+#: eventyay/control/templates/pretixcontrol/organizers/device_connect.html:22
+#: eventyay/control/templates/pretixcontrol/organizers/device_connect.html:27
+#, python-format
+msgid ""
+"Open the <strong>eventyay Check-in</strong> web app in your browser at <a "
+"href=\"%(checkin_url)s\" target=\"_blank\" "
+"rel=\"noopener\">%(checkin_url)s</a>."
+msgstr ""
+"Open the <strong>eventxii Check-in</strong> web app in your browser at <a "
+"href=\"%(checkin_url)s\" target=\"_blank\" "
+"rel=\"noopener\">%(checkin_url)s</a>."
+
+#: eventyay/control/templates/pretixcontrol/organizers/webhooks.html:9
+msgid ""
+"This menu allows you to create webhooks to connect eventyay to other online "
+"services."
+msgstr ""
+"Este menú te permite crear webhooks para conectar eventxii con otros "
+"servicios en línea."
+
+#: eventyay/control/templates/pretixcontrol/pdf/index.html:505
+msgid "eventyay Logo"
+msgstr "Logotipo de eventxii"
+
+#: eventyay/control/views/global_settings.py:341
+#: eventyay/control/views/global_settings.py:351
+msgid "Eventyay system - test email"
+msgstr "Eventxii system - test email"
+
+#: eventyay/control/views/global_settings.py:342
+#: eventyay/control/views/global_settings.py:352
+msgid "This is a test email from your Eventyay system email configuration."
+msgstr "This is a test email from your Eventxii system email configuration."
+
+#: eventyay/eventyay_common/forms/event.py:472
+msgid ""
+"Users will be able to use eventyay in these languages, and you will be able "
+"to provide all texts in these languages. If you don't provide a text in the "
+"language a user selects, it will be shown in your event's default language "
+"instead."
+msgstr ""
+"Los usuarios podrán usar eventxii en estos idiomas, y podrás proporcionar "
+"todos los textos en esos idiomas. Si no proporcionas un texto en el idioma "
+"que un usuario seleccione, se mostrará en el idioma predeterminado de tu "
+"evento."
+
+#: eventyay/eventyay_common/templates/eventyay_common/account/2fa-delete.html:25
+msgid "You will no longer be able to use this device to log in to Eventyay."
+msgstr "You will no longer be able to use this device to log in to Eventxii."
+
+#: eventyay/eventyay_common/templates/eventyay_common/account/authorized-apps.html:71
+msgid "No applications have access to your eventyay account."
+msgstr "Ninguna aplicación tiene acceso a tu cuenta de eventxii."
+
+#: eventyay/eventyay_common/templates/eventyay_common/dashboard/onboarding.html:18
+msgid "Welcome to Eventyay!"
+msgstr "Welcome to Eventxii!"
+
+#: eventyay/eventyay_common/templates/eventyay_common/dashboard/onboarding.html:20
+msgid ""
+"You do not have any tickets, sessions, proposals, or events yet. Use Eventyay"
+" to discover events, register for events, submit talks, or organise your own "
+"event."
+msgstr ""
+"You do not have any tickets, sessions, proposals, or events yet. Use Eventxii"
+" to discover events, register for events, submit talks, or organise your own "
+"event."
+
+#: eventyay/eventyay_common/templates/eventyay_common/organizers/edit.html:229
+msgid ""
+"Enter an email address to add a user. Existing eventyay accounts are added "
+"immediately; everyone else receives an invitation email."
+msgstr ""
+"Introduce una dirección de correo electrónico para añadir un usuario. Las "
+"cuentas existentes de eventxii se añaden de inmediato; el resto recibe un "
+"correo de invitación."
+
+#: eventyay/eventyay_common/templates/eventyay_common/organizers/teams/team_members.html:75
+msgid ""
+"To add a new user, you can enter their email address here. If they already "
+"have an eventyay account, they will immediately be added to the event. "
+"Otherwise, they will be sent an email with an invitation."
+msgstr ""
+"Para añadir un nuevo usuario, puedes introducir aquí su dirección de correo "
+"electrónico. Si ya tiene una cuenta en eventxii, se añadirá inmediatamente al"
+" evento. De lo contrario, se le enviará un correo con una invitación."
+
+#: eventyay/eventyay_common/views/auth.py:263
+#, python-brace-format
+msgid "Welcome to eventyay! You are now part of the team \"{}\"."
+msgstr "Bienvenido a eventxii! Ahora eres parte del equipo \"{}\"."
+
+#: eventyay/eventyay_common/views/organizer.py:601
+#: eventyay/eventyay_common/views/team.py:211
+msgid "Users need to have a eventyay account before they can be invited."
+msgstr ""
+"Los usuarios han de tener una cuenta eventxii antes de poder ser invitados."
+
+#: eventyay/orga/forms/event.py:417
+msgid ""
+"Set to allow external pages to show the schedule widget, even if the schedule"
+" is not shown here using eventyay."
+msgstr ""
+"Configúrelo para permitir que las páginas externas muestren el widget de "
+"programación, incluso si la programación no se muestra aquí usando eventxii."
+
+#: eventyay/orga/templates/orga/base.html:208
+msgid "You’re using eventyay as a superuser. This is not recommended."
+msgstr "Está usando eventxii como superusuario. Esto no es recomendable."
+
+#: eventyay/orga/templates/orga/event_list.html:62
+msgid ""
+"You are currently in the organizer area of eventyay. To view your submitted "
+"proposals, please go directly to the event page:"
+msgstr ""
+"Actualmente estás en el área de organizador de eventxii. Para ver tus "
+"propuestas enviadas, ve directamente a la página del evento:"
+
+#: eventyay/orga/templates/orga/settings/import_export.html:196
+#: eventyay/orga/templates/orga/settings/import_export.html:352
+msgid ""
+"eventyay provides a range of exports. If none of these match what you are "
+"looking for, you can also provide a custom plugin to export the data – please"
+" ask your administrator to install the plugin."
+msgstr ""
+"eventxii ofrece una gama de exportaciones. Si ninguno de estos coincide con "
+"lo que está buscando, también puede proporcionar un complemento personalizado"
+" para exportar los datos; solicite a su administrador que instale el "
+"complemento."
+
+#: eventyay/orga/templates/orga/settings/widget.html:23
+msgid ""
+"You can configure a eventyay schedule widget to show your event schedule on "
+"your homepage, instead of using this page. If you want to disable the "
+"schedule on here entirely, please activate the setting below."
+msgstr ""
+"Puede configurar un widget de programación eventxii para mostrar su "
+"programación de eventos en su página de inicio, en lugar de usar esta página."
+" Si desea deshabilitar el horario aquí por completo, active la configuración "
+"a continuación."
+
+#: eventyay/orga/templates/orga/settings/widget.html:35
+msgid ""
+"The eventyay schedule widget embeds your schedule on your event website, so "
+"attendees can see it without leaving the site."
+msgstr ""
+"The eventxii schedule widget embeds your schedule on your event website, so "
+"attendees can see it without leaving the site."
+
+#: eventyay/orga/templates/orga/user.html:62
+#, python-format
+msgid ""
+"API tokens can be used to access the <a %(apiurl)s>eventyay API</a>. To find "
+"out more, please have a look at the <a %(docurl)s> API documentation</a>."
+msgstr ""
+"Los tokens de API se pueden usar para acceder a la <a %(apiurl)s>API de "
+"eventxii</a>. Para más información, consulte la <a %(docurl)s>documentación "
+"de la API</a>."
+
+#: eventyay/plugins/banktransfer/payment.py:35
+msgid ""
+"I have understood that people will pay the ticket price directly to my bank "
+"account and eventyay cannot automatically know what payments arrived. "
+"Therefore, I will either mark payments as complete manually, or regularly "
+"import a digital bank statement in order to give eventyay the required "
+"information."
+msgstr ""
+"He entendido que las personas que van a pagar por el precio del ticket "
+"directamente a mi cuenta de bando y eventxii automáticamente sabe que los "
+"pagos han llegado. Por lo tanto, Yo no crearé pagos como completados "
+"manualmente, o regularmente importar un archivo digital del estado de cuenta "
+"bancario en orden para darle a eventxii la información requerida."
+
+#: eventyay/plugins/socialauth/apps.py:13
+msgid "the eventyay team"
+msgstr "el equipo de eventxii"
+
+#: eventyay/plugins/socialauth/templates/socialauth/social_setup.html:54
+msgid ""
+"To enable MediaWiki social login for your Eventyay instance, you need to "
+"register an OAuth application with MediaWiki."
+msgstr ""
+"Para habilitar el inicio de sesión social con MediaWiki en su instancia de "
+"Eventxii, debe registrar una aplicación OAuth en MediaWiki."
+
+#: eventyay/plugins/socialauth/templates/socialauth/social_setup.html:95
+msgid ""
+"Add the client application key and client application secret to your Eventyay"
+" social auth settings"
+msgstr ""
+"Agregue la clave y el secreto de la aplicación cliente a la configuración de "
+"autenticación social de su Eventxii"
+
+#: eventyay/plugins/socialauth/templates/socialauth/social_setup.html:100
+msgid ""
+"Once approved, other users can log in to your Eventyay instance using their "
+"MediaWiki account."
+msgstr ""
+"Una vez aprobada, otros usuarios pueden iniciar sesión en su instancia de "
+"Eventxii usando su cuenta de MediaWiki."
+
+#: eventyay/presale/templates/pretixpresale/index.html:10
+#, python-format
+msgid ""
+"This is an installation of <a %(a_attr)s>eventyay</a> - the open source event"
+" management platform."
+msgstr ""
+"Esta es una instalación de <a %(a_attr)s>eventxii</a> - la plataforma de "
+"gestión de eventos de código abierto."
+
+#: eventyay/presale/templates/pretixpresale/index.html:15
+msgid ""
+"Eventyay empowers communities and organizations to create, manage, and host "
+"events of all kinds — from conferences to online meetups."
+msgstr ""
+"Eventxii permite a comunidades y organizaciones crear, gestionar y organizar "
+"eventos de todo tipo — desde conferencias hasta encuentros en línea."
+
+#: eventyay/presale/views/order.py:103
+msgid "Eventyay Video"
+msgstr "Eventxii Video"
+
+#: eventyay/presale/views/widget.py:313
+msgctxt "widget"
+msgid "powered by eventyay"
+msgstr "impulsado por eventxii"

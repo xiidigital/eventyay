@@ -105,7 +105,7 @@ export default defineConfig(({ mode }) => {
       mode === 'production' && VitePWA({
         registerType: 'autoUpdate',
         manifest: {
-          name: 'eventyay',
+          name: 'eventxii',
           theme_color: '#180044',
           icons: [
             {

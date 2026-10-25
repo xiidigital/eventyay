@@ -129,6 +129,9 @@ class BaseSettings(_BaseSettings):
     talk_hostname: str = 'http://localhost:8000'
     sentry_dsn: str = ''
     instance_name: str = 'eventyay'
+    # Translation catalogs looked up before the project ones, e.g. to replace the
+    # platform name (see tools/brand_catalog.py). Relative to the manage.py directory.
+    extra_locale_paths: Annotated[tuple[Path, ...], Field(default_factory=tuple)]
     auth_backends: Annotated[tuple[str, ...], Field(default_factory=lambda: DEFAULT_AUTH_BACKENDS)]
     obligatory_2fa: bool = False
     plugins_default: Annotated[tuple[str, ...], Field(default_factory=lambda: DEFAULT_PLUGINS)]
@@ -587,7 +590,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-LOCALE_PATHS = (BASE_DIR / 'locale',)
+# Directories listed first take precedence.
+LOCALE_PATHS = (*(PROJECT_ROOT / path for path in conf.extra_locale_paths), BASE_DIR / 'locale')
 FORMAT_MODULE_PATH = ['eventyay.helpers.formats']
 
 # TODO: Move to consts.py
@@ -1438,8 +1442,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'eventyay API',
-    'DESCRIPTION': 'API for managing eventyay organizers and events.',
+    'TITLE': f'{conf.instance_name} API',
+    'DESCRIPTION': f'API for managing {conf.instance_name} organizers and events.',
     'VERSION': 'v1',
     'DEFAULT_GENERATOR_CLASS': 'eventyay.api.schema.EventyaySchemaGenerator',
     'SCHEMA_PATH_PREFIX': r'/api/v1',
@@ -1568,8 +1572,8 @@ MULTIFACTOR = {
     'RECHECK_MIN': 3600 * 24,
     'RECHECK_MAX': 3600 * 24 * 7,
     'FIDO_SERVER_ID': urlparse(SITE_URL).hostname,
-    'FIDO_SERVER_NAME': 'Eventyay',
-    'TOKEN_ISSUER_NAME': 'Eventyay',
+    'FIDO_SERVER_NAME': conf.instance_name,
+    'TOKEN_ISSUER_NAME': conf.instance_name,
     'U2F_APPID': SITE_URL,
     'FACTORS': ['FIDO2'],
     'FALLBACKS': {},

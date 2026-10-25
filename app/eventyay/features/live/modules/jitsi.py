@@ -3,6 +3,7 @@ import time
 
 import jwt
 from channels.db import database_sync_to_async
+from django.conf import settings
 
 from eventyay.base.services.jitsi import (
     JitsiServerUnavailable,
@@ -53,9 +54,9 @@ JITSI_MODERATOR_TOOLBAR_BUTTONS = [
 ]
 
 JITSI_INTERFACE_CONFIG_OVERWRITE = {
-    "APP_NAME": "Eventyay Video",
-    "NATIVE_APP_NAME": "Eventyay Video",
-    "PROVIDER_NAME": "Eventyay",
+    "APP_NAME": f"{settings.INSTANCE_NAME} Video",
+    "NATIVE_APP_NAME": f"{settings.INSTANCE_NAME} Video",
+    "PROVIDER_NAME": settings.INSTANCE_NAME,
     "BRAND_WATERMARK_LINK": "",
     "DEFAULT_LOGO_URL": "",
     "DEFAULT_WELCOME_PAGE_LOGO_URL": "",

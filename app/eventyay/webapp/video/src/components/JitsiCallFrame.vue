@@ -12,8 +12,13 @@
 </template>
 
 <script>
+import appConfig from 'config'
 import api from 'lib/api'
 import {logOperational} from 'lib/operationalLog'
+
+function instanceName() {
+	return appConfig?.instanceName || 'eventyay'
+}
 
 export default {
 	name: 'JitsiCallFrame',
@@ -70,7 +75,7 @@ export default {
 
 				const isHttp = (config.protocol && config.protocol.startsWith('http:')) || (config.url && config.url.startsWith('http:'))
 				if (typeof window !== 'undefined' && window.location && window.location.protocol === 'https:' && isHttp) {
-					throw new Error('Jitsi server must use HTTPS when Eventyay is served over HTTPS')
+					throw new Error('Jitsi server must use HTTPS when the platform is served over HTTPS')
 				}
 				const scheme = isHttp ? 'http' : 'https'
 				const wsScheme = isHttp ? 'ws' : 'wss'
@@ -122,9 +127,9 @@ export default {
 				}
 
 				const interfaceConfigOverwrite = {
-					APP_NAME: 'Eventyay Video',
-					NATIVE_APP_NAME: 'Eventyay Video',
-					PROVIDER_NAME: 'Eventyay',
+					APP_NAME: `${instanceName()} Video`,
+					NATIVE_APP_NAME: `${instanceName()} Video`,
+					PROVIDER_NAME: instanceName(),
 					SHOW_JITSI_WATERMARK: false,
 					SHOW_BRAND_WATERMARK: false,
 					SHOW_POWERED_BY: false,
@@ -294,7 +299,7 @@ export default {
 		async loadJitsiExternalApi(config) {
 			const baseUrl = config.url || (String(config.protocol).startsWith('http:') ? `http://${config.domain}` : `https://${config.domain}`)
 			if (typeof window !== 'undefined' && window.location && window.location.protocol === 'https:' && baseUrl.startsWith('http:')) {
-				throw new Error('Jitsi server must use HTTPS when Eventyay is served over HTTPS')
+				throw new Error('Jitsi server must use HTTPS when the platform is served over HTTPS')
 			}
 			if (window.JitsiMeetExternalAPI) {
 				return window.JitsiMeetExternalAPI

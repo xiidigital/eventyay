@@ -341,7 +341,7 @@ def merge_pages(file_paths: list[str], output_file: BinaryIO):
     merger.add_metadata(
         {
             '/Title': 'Badges',
-            '/Creator': 'eventyay',
+            '/Creator': settings.INSTANCE_NAME,
         }
     )
     for pdf in file_paths:
@@ -375,7 +375,7 @@ def render_nup(input_files: list[str], num_pages: int, output_file: BinaryIO, op
             nup_pdf.add_metadata(
                 {
                     '/Title': 'Badges',
-                    '/Creator': 'eventyay',
+                    '/Creator': settings.INSTANCE_NAME,
                 }
             )
 
@@ -432,7 +432,7 @@ def render_badges(event, positions, opt, apply_output_pagesize=False, layout_ove
     badge_pdf.add_metadata(
         {
             '/Title': 'Badges',
-            '/Creator': 'eventyay',
+            '/Creator': settings.INSTANCE_NAME,
         }
     )
 

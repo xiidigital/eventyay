@@ -8,6 +8,17 @@ export default i18next
 export {notifyLocaleChange}
 
 export const LANGUAGE_COOKIE_NAME = 'eventyay_language'
+
+// Translations name the platform "eventyay"; show the configured instance name instead.
+// Domains, e-mail addresses and identifiers (eventyay.com, eventyay-video) stay untouched.
+const PLATFORM_NAME_RE = /(?<![\w./@-])eventyay(?![\w@-]|\.(?:com|org)\b)/gi
+
+function withInstanceName(value) {
+	const name = config.instanceName
+	if (!name || typeof value !== 'string') return value
+	return value.replace(PLATFORM_NAME_RE, (match) => match[0] === 'E' ? name.charAt(0).toUpperCase() + name.slice(1) : name)
+}
+
 const runtime = createVueGettextRuntime({
 	domain: 'video',
 	i18next,
@@ -22,9 +33,16 @@ const runtime = createVueGettextRuntime({
 				return config.theme?.textOverwrites?.[key[0]] ?? value
 			},
 		},
+		{
+			type: 'postProcessor',
+			name: 'instanceName',
+			process(value) {
+				return withInstanceName(value)
+			},
+		},
 	],
 	extraInitOptions: {
-		postProcess: ['themeOverwrites'],
+		postProcess: ['themeOverwrites', 'instanceName'],
 	},
 })
 

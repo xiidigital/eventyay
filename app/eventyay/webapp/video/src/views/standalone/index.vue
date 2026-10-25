@@ -6,7 +6,7 @@
 		.standalone-header
 			.left
 				.logo
-					img(:src="brandLogoUrl", alt="Eventyay")
+					img(:src="brandLogoUrl", :alt="instanceName")
 				.identity(v-if="eventTitle || room")
 					.meta-stack(v-if="eventTitle")
 						span.meta-label {{ $t('Event') }}
@@ -73,6 +73,9 @@ export default {
 		},
 		eventTitle() {
 			return this.world?.title || window.eventyay?.eventTitle || ''
+		},
+		instanceName() {
+			return config?.instanceName || 'eventyay'
 		},
 		brandLogoUrl() {
 			const basePath = config?.basePath ?? ''

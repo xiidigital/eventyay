@@ -178,6 +178,7 @@ class AppView(View):
                         },
                         "eventTimezone": event.settings.timezone,
                         "eventTitle": str(event.name),
+                        "instanceName": settings.INSTANCE_NAME,
                         "visibleLogoUrl": event.visible_logo_url or "",
                         "visibleHeaderImageUrl": event.visible_header_image_url or "",
                     }
