@@ -51,7 +51,9 @@ services:
         target: /etc/nginx/conf.d/default.conf
     volumes:
       - ${DATA_DIR:-./data}/static:/srv/static:ro
-      - ${DATA_DIR:-./data}/data/media:/srv/media:ro
+      # Mount data/ rather than data/media: Docker creates a missing bind mount
+      # source as root, and the app could not write its media folder anymore.
+      - ${DATA_DIR:-./data}/data:/srv/data:ro
     labels:
       - traefik.enable=true
       - traefik.http.routers.eventyay-static.entryPoints=websecure
@@ -123,7 +125,7 @@ configs:
           }
 
           location /media/ {
-              alias /srv/media/;
+              alias /srv/data/media/;
               expires 30d;
           }
 
