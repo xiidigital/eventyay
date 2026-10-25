@@ -28,3 +28,7 @@ celery_always_eager = false
 compress_offline_required = true
 
 short_url = 'https://next.eventyay.com'
+
+# Platform name and the catalog that replaces "eventyay" in texts (see tools/brand_catalog.py).
+instance_name = 'eventxii'
+extra_locale_paths = ['branding/locale']
