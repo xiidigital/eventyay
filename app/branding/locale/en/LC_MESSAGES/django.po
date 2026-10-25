@@ -397,7 +397,6 @@ msgstr ""
 "Otherwise, they will be sent an email with an invitation."
 
 #: eventyay/eventyay_common/views/auth.py:263
-#, python-brace-format
 msgid "Welcome to eventyay! You are now part of the team \"{}\"."
 msgstr "Welcome to eventxii! You are now part of the team \"{}\"."
 

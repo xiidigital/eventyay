@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-22 11:53+0000\n"
+"POT-Creation-Date: 2026-10-25 16:51-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,31 @@ msgstr ""
 msgid "Total revenue"
 msgstr ""
 
+#: eventyay/static/agenda/js/talk-feedback.js:39
+msgid "Emoji picker"
+msgstr ""
+
+#: eventyay/static/common/js/mail-preview.js:33
+#: eventyay/static/common/js/mail-preview.js:110
+msgid "Email preview"
+msgstr ""
+
+#: eventyay/static/common/js/mail-preview.js:37
+msgid "Generating preview…"
+msgstr ""
+
+#: eventyay/static/common/js/mail-preview.js:81
+msgid "Form validation failed."
+msgstr ""
+
+#: eventyay/static/common/js/mail-preview.js:103
+msgid ""
+"Email preview could not be generated. Please check the message content and "
+"try again."
+msgstr ""
+
 #: eventyay/static/common/js/richtextPreview.js:7
+#: eventyay/static/orga/js/mail-editor-tabs.js:30
 msgid "Preview could not be loaded."
 msgstr ""
 
@@ -80,8 +104,8 @@ msgid "We are currently sending your request to the server."
 msgstr ""
 
 #: eventyay/static/eventyay-common/js/asynctask.js:219
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:159
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:250
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:164
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:223
 msgid "An error occurred. Please try again."
 msgstr ""
 
@@ -99,13 +123,14 @@ msgstr ""
 
 #: eventyay/static/eventyay-common/js/ui/popover.js:30
 #: eventyay/static/pretixcontrol/js/ui/popover.js:27
-#: eventyay/static/pretixpresale/js/ui/popover.js:132
+#: eventyay/static/pretixpresale/js/ui/popover.js:123
 msgid "Dashboard"
 msgstr ""
 
 #: eventyay/static/eventyay-common/js/ui/popover.js:36
 #: eventyay/static/pretixcontrol/js/ui/popover.js:32
-#: eventyay/static/pretixpresale/js/ui/popover.js:138
+#: eventyay/static/pretixpresale/js/ui/popover.js:42
+#: eventyay/static/pretixpresale/js/ui/popover.js:129
 msgid "My orders"
 msgstr ""
 
@@ -115,7 +140,8 @@ msgid "My sessions"
 msgstr ""
 
 #: eventyay/static/eventyay-common/js/ui/popover.js:46
-msgid "My Events"
+#: eventyay/static/pretixcontrol/js/ui/popover.js:42
+msgid "My events"
 msgstr ""
 
 #: eventyay/static/eventyay-common/js/ui/popover.js:52
@@ -125,7 +151,7 @@ msgstr ""
 
 #: eventyay/static/eventyay-common/js/ui/popover.js:60
 #: eventyay/static/pretixcontrol/js/ui/popover.js:53
-#: eventyay/static/pretixpresale/js/ui/popover.js:173
+#: eventyay/static/pretixpresale/js/ui/popover.js:159
 msgid "Account"
 msgstr ""
 
@@ -136,9 +162,24 @@ msgstr ""
 
 #: eventyay/static/eventyay-common/js/ui/popover.js:74
 #: eventyay/static/pretixcontrol/js/ui/popover.js:64
-#: eventyay/static/pretixpresale/js/ui/popover.js:191
+#: eventyay/static/pretixpresale/js/ui/popover.js:177
 msgid "Logout"
 msgstr ""
+
+#: eventyay/static/klaro/klaro.js:1
+msgid "RegExp"
+msgstr ""
+
+#: eventyay/static/orga/js/mail-editor-tabs.js:52
+msgid "Loading preview…"
+msgstr ""
+
+#: eventyay/static/orga/js/review.js:259
+#, javascript-format
+msgid "%s proposal is waiting for your review."
+msgid_plural "%s proposals are waiting for your review."
+msgstr[0] ""
+msgstr[1] ""
 
 #: eventyay/static/pretixbase/js/asynctask.js:92
 #: eventyay/static/pretixbase/js/asynctask.js:185
@@ -151,7 +192,7 @@ msgstr ""
 #: eventyay/static/pretixbase/js/asynctask.js:123
 #: eventyay/static/pretixbase/js/asynctask.js:226
 #: eventyay/static/pretixbase/js/asynctask.js:231
-#: eventyay/static/pretixcontrol/js/ui/mail.js:24
+#: eventyay/static/pretixcontrol/js/ui/mail.js:31
 msgid "An error of type {code} occurred."
 msgstr ""
 
@@ -162,12 +203,12 @@ msgid ""
 msgstr ""
 
 #: eventyay/static/pretixbase/js/asynctask.js:199
-#: eventyay/static/pretixcontrol/js/ui/mail.js:21
+#: eventyay/static/pretixcontrol/js/ui/mail.js:28
 msgid "The request took too long. Please try again."
 msgstr ""
 
 #: eventyay/static/pretixbase/js/asynctask.js:234
-#: eventyay/static/pretixcontrol/js/ui/mail.js:26
+#: eventyay/static/pretixcontrol/js/ui/mail.js:33
 msgid ""
 "We currently cannot reach the server. Please try again. Error code: {code}"
 msgstr ""
@@ -192,78 +233,81 @@ msgstr ""
 msgid "Press Ctrl-C to copy!"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:65
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:45
+msgid "Close"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:70
 msgid "Please confirm that this account should be a site admin."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:108
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:243
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:113
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:264
 msgid "Session expired or access denied. Please refresh the page."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:117
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:122
 msgid "Unverify"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:117
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:122
 msgid "Verify"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:122
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:127
 msgid "Remove admin"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:122
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:127
 msgid "Make admin"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:127
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:132
 msgid "Unmark spam"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:127
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:149
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:132
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:154
 msgid "Mark as spam"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:145
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:150
 msgid "Administrators cannot be marked as spam."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:163
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:253
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:168
 msgid "Network error. Please try again."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:207
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:212
 msgid "User marked as verified."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:207
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:212
 msgid "User marked as unverified."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:208
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:213
 msgid "Admin role granted."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:208
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:213
 msgid "Admin role removed."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:209
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:214
 msgid "User marked as spam."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:209
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:214
 msgid "User unmarked as spam."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:211
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:216
 msgid "Action completed successfully."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/admin-users.js:248
+#: eventyay/static/pretixcontrol/js/ui/admin-users.js:270
 msgid "Email sent successfully."
 msgstr ""
 
@@ -345,69 +389,73 @@ msgstr ""
 msgid "Check-in QR"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:305
+#: eventyay/static/pretixcontrol/js/ui/editor.js:414
 msgid "Saving failed."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:310
+#: eventyay/static/pretixcontrol/js/ui/editor.js:419
 msgid "Saved"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:676
+#: eventyay/static/pretixcontrol/js/ui/editor.js:683
+msgid "Disabled in settings"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/editor.js:797
 msgid "The PDF background file could not be loaded for the following reason:"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:913
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1064
 msgid "Group of objects"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:919
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1070
 msgid "Text object"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:921
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1072
 msgid "Barcode area"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:923
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1074
 msgid "Image area"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:925
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1076
 msgid "Powered by pretix"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:927
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1078
 msgid "Object"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:931
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1082
 msgid "Ticket design"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:991
-#: eventyay/static/pretixcontrol/js/ui/editor.js:995
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1148
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1152
 msgid "Error while updating the background PDF, please try again."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:1308
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1557
 msgid "Preview failed."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:1351
-#: eventyay/static/pretixcontrol/js/ui/editor.js:1395
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1600
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1644
 msgid "Error while uploading your PDF file, please try again."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/editor.js:1375
+#: eventyay/static/pretixcontrol/js/ui/editor.js:1624
 msgid "Do you really want to leave the editor without saving your changes?"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/mail.js:19
+#: eventyay/static/pretixcontrol/js/ui/mail.js:26
 msgid "An error has occurred."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/mail.js:54
+#: eventyay/static/pretixcontrol/js/ui/mail.js:61
 msgid "Generating messages …"
 msgstr ""
 
@@ -456,36 +504,32 @@ msgstr ""
 msgid "Your color has bad contrast for text on "
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/main.js:835
+#: eventyay/static/pretixcontrol/js/ui/main.js:837
 msgid "Select one or more events above to see matching check-in lists."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/main.js:837
+#: eventyay/static/pretixcontrol/js/ui/main.js:839
 msgid "No check-in lists exist for the selected events yet."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/main.js:1184
+#: eventyay/static/pretixcontrol/js/ui/main.js:1171
 msgid "Use a different name internally"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/main.js:1217
+#: eventyay/static/pretixcontrol/js/ui/main.js:1204
 msgid "Could not load log details."
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/main.js:1244
+#: eventyay/static/pretixcontrol/js/ui/main.js:1231
 msgid "Click to close"
 msgstr ""
 
-#: eventyay/static/pretixcontrol/js/ui/main.js:1277
+#: eventyay/static/pretixcontrol/js/ui/main.js:1263
 msgid "You have unsaved changes!"
 msgstr ""
 
 #: eventyay/static/pretixcontrol/js/ui/orderchange.js:25
 msgid "Calculating default price…"
-msgstr ""
-
-#: eventyay/static/pretixcontrol/js/ui/popover.js:42
-msgid "My events"
 msgstr ""
 
 #: eventyay/static/pretixcontrol/js/ui/question.js:42
@@ -504,11 +548,86 @@ msgstr ""
 msgid "is not checked"
 msgstr ""
 
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:101
+msgid "Paid"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:104
+msgid "Free"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:162
+msgid "Yes"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:162
+msgid "No"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:166
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:170
+msgid "Enabled"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:166
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:170
+msgid "Disabled"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:175
+msgid "Bank transfer"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:178
+msgid "Manual payment"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:181
+msgid "Stripe"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:184
+msgid "PayPal"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:190
+msgid "None selected"
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:197
+msgid "At least one ticket type is required to sell tickets."
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:204
+msgid "At least one payment method is required for paid tickets."
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:211
+msgid "Event currency must be selected."
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:282
+#: eventyay/static/pretixcontrol/js/ui/quicksetup.js:414
+msgid "Ticket name"
+msgstr ""
+
 #: eventyay/static/pretixcontrol/js/ui/subevent.js:111
 msgid "(one more date)"
 msgid_plural "({num} more dates)"
 msgstr[0] ""
 msgstr[1] ""
+
+#: eventyay/static/pretixcontrol/js/ui/voucher-bulk.js:112
+msgid "The prefix is too long."
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/voucher-bulk.js:127
+msgid "Generating..."
+msgstr ""
+
+#: eventyay/static/pretixcontrol/js/ui/voucher-bulk.js:150
+msgid "Error while generating keys."
+msgstr ""
 
 #: eventyay/static/pretixpresale/js/ui/cart.js:39
 msgid "The items in your cart are no longer reserved for you."
@@ -555,44 +674,36 @@ msgstr ""
 msgid "Please enter the amount the organizer can keep."
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/main.js:677
-#: eventyay/static/pretixpresale/js/ui/main.js:695
+#: eventyay/static/pretixpresale/js/ui/main.js:678
+#: eventyay/static/pretixpresale/js/ui/main.js:696
 msgid "Time zone:"
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/main.js:686
+#: eventyay/static/pretixpresale/js/ui/main.js:687
 msgid "Your local time:"
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/popover.js:38
+#: eventyay/static/pretixpresale/js/ui/popover.js:37
 msgid "Tickets"
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/popover.js:43
-msgid "My Orders"
-msgstr ""
-
-#: eventyay/static/pretixpresale/js/ui/popover.js:127
+#: eventyay/static/pretixpresale/js/ui/popover.js:118
 msgid "Home"
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/popover.js:143
-msgid "My tickets"
-msgstr ""
-
-#: eventyay/static/pretixpresale/js/ui/popover.js:153
+#: eventyay/static/pretixpresale/js/ui/popover.js:139
 msgid "My proposals"
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/popover.js:158
+#: eventyay/static/pretixpresale/js/ui/popover.js:144
 msgid "Speaker profile"
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/popover.js:163
+#: eventyay/static/pretixpresale/js/ui/popover.js:149
 msgid "Speaker emails"
 msgstr ""
 
-#: eventyay/static/pretixpresale/js/ui/popover.js:182
+#: eventyay/static/pretixpresale/js/ui/popover.js:168
 msgid "Organizer area"
 msgstr ""
 
@@ -840,4 +951,3 @@ msgstr ""
 #: eventyay/static/pretixpresale/js/widget/widget.js:99
 msgid "December"
 msgstr ""
-
