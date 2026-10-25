@@ -1,0 +1,133 @@
+# HTTPS for deployment/docker-compose.yml without a host-level nginx.
+#
+# Traefik terminates TLS with Let's Encrypt certificates and routes requests:
+#   /ws/                                  -> websocket (daphne)
+#   /static/, /media/, video SPA assets   -> static (nginx, read-only files)
+#   everything else                       -> web (gunicorn)
+# This replaces deployment/nginx/enext-direct and certbot, see DEPLOYMENT.md.
+#
+# Usage, next to the .env file:
+#   docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d
+# or set COMPOSE_FILE=docker-compose.yml:docker-compose.traefik.yml in .env.
+#
+# Needs SERVER_NAME and MANAGEMENT_EMAIL in .env, DNS of SERVER_NAME pointing to
+# this host, and ports 80 and 443 open. Requires Docker Compose 2.24.4 or newer.
+
+services:
+  traefik:
+    image: traefik:v3.7
+    container_name: eventyay-next-traefik
+    restart: unless-stopped
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+      - --entryPoints.web.address=:80
+      - --entryPoints.web.http.redirections.entryPoint.to=websecure
+      - --entryPoints.web.http.redirections.entryPoint.scheme=https
+      - --entryPoints.web.http.redirections.entryPoint.permanent=true
+      - --entryPoints.websecure.address=:443
+      # The default of 60s covers the whole request body, so it would cut slow
+      # uploads, and possibly WebSocket connections.
+      - --entryPoints.websecure.transport.respondingTimeouts.readTimeout=0
+      - --certificatesResolvers.letsencrypt.acme.email=${MANAGEMENT_EMAIL:?Set MANAGEMENT_EMAIL in .env}
+      - --certificatesResolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesResolvers.letsencrypt.acme.httpChallenge.entryPoint=web
+      # Point to https://acme-staging-v02.api.letsencrypt.org/directory while testing,
+      # to stay clear of the Let's Encrypt rate limits.
+      - --certificatesResolvers.letsencrypt.acme.caServer=${ACME_CA_SERVER:-https://acme-v02.api.letsencrypt.org/directory}
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${DATA_DIR:-./data}/letsencrypt:/letsencrypt
+
+  static:
+    image: nginx:1.28-alpine
+    container_name: eventyay-next-static
+    restart: unless-stopped
+    configs:
+      - source: static-nginx
+        target: /etc/nginx/conf.d/default.conf
+    volumes:
+      - ${DATA_DIR:-./data}/static:/srv/static:ro
+      - ${DATA_DIR:-./data}/data/media:/srv/media:ro
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.eventyay-static.entryPoints=websecure
+      - traefik.http.routers.eventyay-static.tls.certResolver=letsencrypt
+      # Same video SPA paths as the nginx config below.
+      - >-
+        traefik.http.routers.eventyay-static.rule=Host(`${SERVER_NAME:?Set SERVER_NAME in .env}`) && (
+        PathPrefix(`/static/`) || PathPrefix(`/media/`)
+        || PathRegexp(`(?i)^/(?:[^/]+/[^/]+/video|video/event/[^/]+/[^/]+)/assets/(?:[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*/)*[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*$$`)
+        || PathRegexp(`(?i)^/(?:[^/]+/[^/]+/video|video/event/[^/]+/[^/]+)/[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*\.(?:js|css|webmanifest|png|svg|ico|woff2?|ttf|json)$$`))
+      - traefik.http.routers.eventyay-static.priority=30
+      - traefik.http.services.eventyay-static.loadBalancer.server.port=80
+
+  web:
+    ports: !reset []
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.eventyay-web.entryPoints=websecure
+      - traefik.http.routers.eventyay-web.tls.certResolver=letsencrypt
+      - traefik.http.routers.eventyay-web.rule=Host(`${SERVER_NAME}`)
+      - traefik.http.routers.eventyay-web.priority=10
+      - traefik.http.services.eventyay-web.loadBalancer.server.port=8000
+
+  websocket:
+    ports: !reset []
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.eventyay-websocket.entryPoints=websecure
+      - traefik.http.routers.eventyay-websocket.tls.certResolver=letsencrypt
+      - traefik.http.routers.eventyay-websocket.rule=Host(`${SERVER_NAME}`) && PathPrefix(`/ws/`)
+      - traefik.http.routers.eventyay-websocket.priority=20
+      - traefik.http.services.eventyay-websocket.loadBalancer.server.port=8001
+
+configs:
+  # Static and media files, as in deployment/nginx/enext-direct.
+  # "$$" is how Compose writes a literal "$".
+  static-nginx:
+    content: |
+      server {
+          listen 80;
+          access_log off;
+
+          gzip on;
+          gzip_vary on;
+          gzip_comp_level 6;
+          gzip_types text/plain text/css text/javascript application/javascript application/json image/svg+xml;
+          gzip_min_length 1024;
+
+          # Video SPA files. <base href> makes the browser request these on the event
+          # URL, but collectstatic already wrote them to static/video/.
+          # The capture rejects ".." path segments.
+          location ~* "^/(?:[^/]+/[^/]+/video|video/event/[^/]+/[^/]+)/assets/((?:[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*/)*[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*)$$" {
+              alias /srv/static/video/assets/$$1;
+              add_header Cache-Control "public, max-age=3600";
+              add_header Access-Control-Allow-Origin "*" always;
+          }
+
+          # Root video files (preloader, service worker, manifest, icons).
+          location ~* "^/(?:[^/]+/[^/]+/video|video/event/[^/]+/[^/]+)/([A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*\.(?:js|css|webmanifest|png|svg|ico|woff2?|ttf|json))$$" {
+              alias /srv/static/video/$$1;
+              add_header Cache-Control "public, max-age=3600";
+              add_header Access-Control-Allow-Origin "*" always;
+          }
+
+          location /static/ {
+              alias /srv/static/;
+              add_header Cache-Control "public, max-age=3600" always;
+              add_header Access-Control-Allow-Origin "*" always;
+          }
+
+          location /media/ {
+              alias /srv/media/;
+              expires 30d;
+          }
+
+          location / {
+              return 404;
+          }
+      }

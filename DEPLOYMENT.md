@@ -257,9 +257,35 @@ cd /home/$USER/$DEPLOYMENT_NAME
 ln -s eventyay/deployment/docker-compose.traefik.yml .
 ```
 
-In `.env`, set `SERVER_NAME` and `MANAGEMENT_EMAIL`, and uncomment
+In `.env`, set `SERVER_NAME` and `MANAGEMENT_EMAIL`, and set
 `COMPOSE_FILE=docker-compose.yml:docker-compose.traefik.yml` so that every
 `docker compose` command uses both files. Then start up as above.
 While testing, uncomment `ACME_CA_SERVER` to use the Let's Encrypt staging CA;
 its certificates are not trusted by browsers. To switch to real certificates,
 comment it out again and delete `$DATA_DIR/letsencrypt/acme.json`.
+
+## Building the image yourself
+
+By default the containers run the published `eventyay/eventyay-next` image.
+`deployment/docker-compose.build.yml` builds `app/Dockerfile.prod` from the
+checkout instead, so local changes end up in the running containers. The build
+compiles the frontends with npm, give the server enough memory for it.
+
+```$USER@server
+cd /home/$USER/$DEPLOYMENT_NAME
+ln -s eventyay/deployment/docker-compose.build.yml .
+```
+
+In `.env`, set `APP_BUILD_CONTEXT=eventyay/app` (the path to `app/`, relative
+to this directory) and add the file to `COMPOSE_FILE`, before the Traefik one
+if you use it:
+`COMPOSE_FILE=docker-compose.yml:docker-compose.build.yml:docker-compose.traefik.yml`.
+
+Build and start, and do the same after every change to the checkout:
+
+```$USER@server
+docker compose up -d --build
+```
+
+Watchtower is not started in this setup, as it can only update images from a
+registry.

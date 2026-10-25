@@ -1,0 +1,42 @@
+# Builds the eventyay image from this checkout (app/Dockerfile.prod) instead of
+# pulling eventyay/eventyay-next from Docker Hub, so local changes end up in it.
+#
+# Usage, next to the .env file:
+#   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+# or add it to COMPOSE_FILE in .env (see env.sample).
+#
+# Relative paths resolve from the directory of the first compose file. With the
+# symlink layout of DEPLOYMENT.md, set APP_BUILD_CONTEXT=eventyay/app in .env.
+
+x-app-build: &app-build
+  context: ${APP_BUILD_CONTEXT:-../app}
+  dockerfile: Dockerfile.prod
+
+services:
+  # Every service runs the same image; after the first build the others are
+  # served from the build cache.
+  web:
+    image: eventyay-next-local:latest
+    build: *app-build
+
+  websocket:
+    image: eventyay-next-local:latest
+    build: *app-build
+
+  worker:
+    image: eventyay-next-local:latest
+    build: *app-build
+
+  worker-heavy:
+    image: eventyay-next-local:latest
+    build: *app-build
+
+  beat:
+    image: eventyay-next-local:latest
+    build: *app-build
+
+  # Watchtower updates containers by pulling their image from a registry, which
+  # a local image doesn't have. Start it with "--profile watchtower" if you push
+  # the image somewhere.
+  watchtower:
+    profiles: [watchtower]
